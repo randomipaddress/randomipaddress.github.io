@@ -1,4 +1,5 @@
 function test()
-{
-    document.write("test");
+{   
+    let text = document.getElementById("enteredtext").value;
+    document.write(text);
 }

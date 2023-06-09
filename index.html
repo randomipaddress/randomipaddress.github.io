@@ -19,10 +19,10 @@
             function startGame() {
             myGameArea.start();
             player = new component(30, 30, "red", 220, 125);
-            obstacle0 = new component(200, 30, "black", 200, 150);
-            obstacle1 = new component(200, 30, "black", 0, 300);
-            obstacle2 = new component(200, 30, "black", 200, 450);
-            obstacle3 = new component(200, 30, "black", 0, 600);
+            obstacle0 = new component(200, 30, "green", 200, 400);
+            obstacle1 = new component(200, 30, "black", 0, 550);
+            obstacle2 = new component(200, 30, "black", 200, 700);
+            obstacle3 = new component(200, 30, "black", 0, 850);
             }
             
             var myGameArea = 
@@ -79,10 +79,10 @@
                 console.log(player.gravitySpeed);
                 player.speedX = 0;
                 player.speedY = 0;
-                if (obstacle0.y < 0) {obstacle0.y = 600}
-                if (obstacle1.y < 0) {obstacle1.y = 600}
-                if (obstacle2.y < 0) {obstacle2.y = 600}
-                if (obstacle3.y < 0) {obstacle3.y = 600}
+                if (obstacle0.y < 0) {obstacle0.y = 600; obstacle0.x = (Math.floor(Math.random() * 280) + 1); obstacle0.width = (Math.floor(Math.random() * 150) + 100)}
+                if (obstacle1.y < 0) {obstacle1.y = 600; obstacle1.x = (Math.floor(Math.random() * 280) + 1); obstacle1.width = (Math.floor(Math.random() * 150) + 100)}
+                if (obstacle2.y < 0) {obstacle2.y = 600; obstacle2.x = (Math.floor(Math.random() * 280) + 1); obstacle2.width = (Math.floor(Math.random() * 150) + 100)}
+                if (obstacle3.y < 0) {obstacle3.y = 600; obstacle3.x = (Math.floor(Math.random() * 280) + 1); obstacle3.width = (Math.floor(Math.random() * 150) + 100)}
                 if (myGameArea.key && myGameArea.key == 65) {player.speedX = -4; }
                 if (myGameArea.key && myGameArea.key == 68) {player.speedX = 4; }
                 if (player.y > (obstacle0.y - player.height) && player.y < obstacle0.y && player.x > obstacle0.x && player.x < (obstacle0.x + obstacle0.width)) {player.y = (obstacle0.y -player.height); player.speedY = 0; player.gravitySpeed = 0;}

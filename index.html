@@ -1,102 +1,109 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <style>
-            canvas {
-                border:1px solid #d3d3d3;
-                background-color: #f1f1f1;
-            }
-        </style>
-    </head>
-    <body onload="startGame()">
-        <script>
-            var player;
-            var obstacle0;
-            var obstacle1;
-            var obstacle2;
-            var obstacle3;
-
-            function startGame() {
-            myGameArea.start();
-            player = new component(30, 30, "red", 220, 125);
-            obstacle0 = new component(200, 30, "green", 200, 400);
-            obstacle1 = new component(200, 30, "black", 0, 550);
-            obstacle2 = new component(200, 30, "black", 200, 700);
-            obstacle3 = new component(200, 30, "black", 0, 850);
-            }
-            
-            var myGameArea = 
-            {
-            canvas : document.createElement("canvas"),
-            start : function() {
-                this.canvas.width = 480;
-                this.canvas.height = 600;
-                this.context = this.canvas.getContext("2d");
-                document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-                this.interval = setInterval(updateGameArea, 20);
-                window.addEventListener('keydown', function (e) {
-                    myGameArea.key = e.keyCode;
-                })
-                window.addEventListener('keyup', function (e) {
-                    myGameArea.key = false;
-                })
-            },
-            stop : function() {
-                clearInterval(this.interval);
-            },
-            clear : function() 
-                {
-                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                }
-            }
-
-            function component(width, height, color, x, y, type) {
-                this.type = type;
-                this.width = width;
-                this.height = height;
-                this.speedX = 0;
-                this.speedY = 0;
-                this.x = x;
-                this.y = y;
-                this.gravity = 0.05;
-                this.gravitySpeed = 0;
-                this.update = function(){
-                ctx = myGameArea.context;
-                ctx.fillStyle = color;
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-                }
-                this.newPos = function() {
-                    this.gravitySpeed += this.gravity;
-                    this.x += this.speedX;
-                    this.y += this.speedY + this.gravitySpeed;
-                }
-            }
-
-            function updateGameArea() {
-                myGameArea.clear();
-                if (myGameArea.key && myGameArea.key == 87) {player.speedY = -2; }
-                player.newPos();
-                console.log(player.gravitySpeed);
-                player.speedX = 0;
-                player.speedY = 0;
-                if (obstacle0.y < 0) {obstacle0.y = 600; obstacle0.x = (Math.floor(Math.random() * 280) + 1); obstacle0.width = (Math.floor(Math.random() * 150) + 100)}
-                if (obstacle1.y < 0) {obstacle1.y = 600; obstacle1.x = (Math.floor(Math.random() * 280) + 1); obstacle1.width = (Math.floor(Math.random() * 150) + 100)}
-                if (obstacle2.y < 0) {obstacle2.y = 600; obstacle2.x = (Math.floor(Math.random() * 280) + 1); obstacle2.width = (Math.floor(Math.random() * 150) + 100)}
-                if (obstacle3.y < 0) {obstacle3.y = 600; obstacle3.x = (Math.floor(Math.random() * 280) + 1); obstacle3.width = (Math.floor(Math.random() * 150) + 100)}
-                if (myGameArea.key && myGameArea.key == 65) {player.speedX = -4; }
-                if (myGameArea.key && myGameArea.key == 68) {player.speedX = 4; }
-                if (player.y > (obstacle0.y - player.height) && player.y < obstacle0.y && player.x > obstacle0.x && player.x < (obstacle0.x + obstacle0.width)) {player.y = (obstacle0.y -player.height); player.speedY = 0; player.gravitySpeed = 0;}
-                if (player.y > (obstacle1.y - player.height) && player.y < obstacle1.y && player.x > obstacle1.x && player.x < (obstacle1.x + obstacle1.width)) {player.y = (obstacle1.y -player.height); player.speedY = 0; player.gravitySpeed = 0;}
-                if (player.y > (obstacle2.y - player.height) && player.y < obstacle2.y && player.x > obstacle2.x && player.x < (obstacle2.x + obstacle2.width)) {player.y = (obstacle2.y -player.height); player.speedY = 0; player.gravitySpeed = 0;}
-                if (player.y > (obstacle3.y - player.height) && player.y < obstacle3.y && player.x > obstacle3.x && player.x < (obstacle3.x + obstacle3.width)) {player.y = (obstacle3.y -player.height); player.speedY = 0; player.gravitySpeed = 0;}
-                player.y = 300;
-                player.update();
-                obstacle0.y -= (player.gravitySpeed);
-                obstacle1.y -= (player.gravitySpeed);
-                obstacle2.y -= (player.gravitySpeed);
-                obstacle3.y -= (player.gravitySpeed);
-                obstacle0.update(); obstacle1.update(); obstacle2.update(); obstacle3.update();
-            }
-        </script>
-    </body>
-</html>
+<!DOCTYPE html> 
+ <html> 
+     <head> 
+         <style> 
+             canvas { 
+                 border:1px solid #d3d3d3; 
+                 background-color: #f1f1f1; 
+             } 
+         </style> 
+     </head> 
+     <body onload="startGame()"> 
+         <script> 
+             var player; 
+             var obstacle0; 
+             var obstacle1; 
+             var obstacle2; 
+             var obstacle3; 
+             var score = 3; 
+  
+             function startGame() { 
+             myGameArea.start(); 
+             player = new component(30, 30, "red", 220, 125); 
+             obstacle0 = new component(200, 30, "green", 200, 400); 
+             obstacle1 = new component(200, 30, "black", 0, 550); 
+             obstacle2 = new component(200, 30, "black", 200, 700); 
+             obstacle3 = new component(200, 30, "black", 0, 850); 
+             } 
+  
+             var myGameArea =  
+             { 
+             canvas : document.createElement("canvas"), 
+             start : function() { 
+                 this.canvas.width = 480; 
+                 this.canvas.height = 600; 
+                 this.context = this.canvas.getContext("2d"); 
+                 document.body.insertBefore(this.canvas, document.body.childNodes[0]); 
+                 this.interval = setInterval(updateGameArea, 20); 
+                 window.addEventListener('keydown', function (e) { 
+                     myGameArea.key = e.keyCode; 
+                 }) 
+                 window.addEventListener('keyup', function (e) { 
+                     myGameArea.key = false; 
+                 }) 
+             }, 
+             stop : function() { 
+                 clearInterval(this.interval); 
+             }, 
+             clear : function()  
+                 { 
+                     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); 
+                 } 
+             } 
+  
+             function component(width, height, color, x, y, type) { 
+                 this.type = type; 
+                 this.width = width; 
+                 this.height = height; 
+                 this.speedX = 0; 
+                 this.speedY = 0; 
+                 this.x = x; 
+                 this.y = y; 
+                 this.gravity = 0.25; 
+                 this.gravitySpeed = 0; 
+                 this.update = function(){ 
+                 ctx = myGameArea.context; 
+                 ctx.fillStyle = color; 
+                 ctx.fillRect(this.x, this.y, this.width, this.height); 
+                 } 
+                 this.newPos = function() { 
+                     this.gravitySpeed += this.gravity; 
+                     this.x += this.speedX; 
+                     this.y += this.speedY + this.gravitySpeed; 
+                 } 
+             } 
+  
+             function updateGameArea() { 
+                 myGameArea.clear(); 
+                 if (myGameArea.key && myGameArea.key == 87) {player.speedY = -2; } 
+                 player.newPos(); 
+                 console.log(player.gravitySpeed); 
+                 player.speedX = 0; 
+                 player.speedY = 0; 
+                 if (obstacle0.y < 0) {obstacle0.y = 600; obstacle0.x = (Math.floor(Math.random() * 280) + 1); obstacle0.width = (Math.floor(Math.random() * 150) + 100); score += 1} 
+                 if (obstacle1.y < 0) {obstacle1.y = 600; obstacle1.x = (Math.floor(Math.random() * 280) + 1); obstacle1.width = (Math.floor(Math.random() * 150) + 100); score += 1} 
+                 if (obstacle2.y < 0) {obstacle2.y = 600; obstacle2.x = (Math.floor(Math.random() * 280) + 1); obstacle2.width = (Math.floor(Math.random() * 150) + 100); score += 1} 
+                 if (obstacle3.y < 0) {obstacle3.y = 600; obstacle3.x = (Math.floor(Math.random() * 280) + 1); obstacle3.width = (Math.floor(Math.random() * 150) + 100); score += 1} 
+                 if (player.y > (obstacle0.y - player.height) && player.y < obstacle0.y && player.x > obstacle0.x && player.x < (obstacle0.x + obstacle0.width)) {player.y = (obstacle0.y -player.height); player.speedY = 0; player.gravitySpeed = 0;} 
+                 if (player.y > (obstacle1.y - player.height) && player.y < obstacle1.y && player.x > obstacle1.x && player.x < (obstacle1.x + obstacle1.width)) {player.y = (obstacle1.y -player.height); player.speedY = 0; player.gravitySpeed = 0;} 
+                 if (player.y > (obstacle2.y - player.height) && player.y < obstacle2.y && player.x > obstacle2.x && player.x < (obstacle2.x + obstacle2.width)) {player.y = (obstacle2.y -player.height); player.speedY = 0; player.gravitySpeed = 0;} 
+                 if (player.y > (obstacle3.y - player.height) && player.y < obstacle3.y && player.x > obstacle3.x && player.x < (obstacle3.x + obstacle3.width)) {player.y = (obstacle3.y -player.height); player.speedY = 0; player.gravitySpeed = 0;} 
+                 if (myGameArea.key && myGameArea.key == 65) {player.speedX = -8; } 
+                 if (myGameArea.key && myGameArea.key == 68) {player.speedX = 8; } 
+                 if (player.x < 0) {player.x = 0} 
+                 if (player.x > (480 - player.width)) {player.x = (480 - player.width)} 
+                 if (myGameArea.key && myGameArea.key == 32) {player.y -= 4; player.gravitySpeed = 1} 
+                 if (player.y > 300) {if (player.gravitySpeed < 4){player.y -= 4} else {player.y -= player.gravitySpeed}} 
+                 player.update(); 
+                 obstacle0.y -= (player.gravitySpeed); 
+                 obstacle1.y -= (player.gravitySpeed); 
+                 obstacle2.y -= (player.gravitySpeed); 
+                 obstacle3.y -= (player.gravitySpeed); 
+                 obstacle0.update(); obstacle1.update(); obstacle2.update(); obstacle3.update(); 
+                 console.log(score) 
+                 document.getElementById("score").innerHTML = score; 
+             } 
+         </script> 
+         <p id="score">0</p> 
+     </body> 
+ </html>

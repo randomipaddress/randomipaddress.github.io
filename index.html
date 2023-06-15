@@ -100,7 +100,7 @@
                 if (player.y > (powerup.y - player.height) && player.y < (powerup.y + player.height) && player.x > (powerup.x - player.height) && player.x < (powerup.x + powerup.width)) {player.jump = 100; powerup.x = -100}
                 if (gameWindow.keys && gameWindow.keys[65]) {player.speedX = -8; }
                 if (gameWindow.keys && gameWindow.keys[68]) {player.speedX = 8; }
-                if ((player.score / w ) === 100) {player.health += 50; w += 1}
+                if ((score / 100 ) == w) {player.health += 50; w += 1}
                 if (player.x < 0) {player.x = 0}
                 if (player.x > (1480 - player.width)) {player.x = (1480 - player.width)}
                 if (gameWindow.key && gameWindow.key == 32) {player.y -= 4; player.gravitySpeed = 1}

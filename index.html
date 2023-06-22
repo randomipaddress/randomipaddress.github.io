@@ -85,8 +85,6 @@
                 if (gameWindow.keys && gameWindow.keys[32] && player.jump > 0) {player.speedY = -10; player.gravitySpeed = 2; player.jump -= 1}
                 player.newPos();
                 console.log(player.gravitySpeed);
-                player.speedX = 0;
-                player.speedY = 0;
                 if (powerup.x > 1480) {powerup.x = 0}
                 if (obstacle0.y < 0) {obstacle0.y = 800; obstacle0.x = (Math.floor(Math.random() * 1480) -50); obstacle0.width = (Math.floor(Math.random() * 400) + 100); score += 1}
                 if (obstacle1.y < 0) {obstacle1.y = 800; obstacle1.x = (Math.floor(Math.random() * 1480) -50); obstacle1.width = (Math.floor(Math.random() * 400) + 100); score += 1}
@@ -98,14 +96,16 @@
                 if (player.y > (obstacle2.y - player.height) && player.y < obstacle2.y && player.x > obstacle2.x && player.x < (obstacle2.x + obstacle2.width)) {player.y = (obstacle2.y -player.height); player.speedY = 0; player.gravitySpeed = 0; player.health -= 1}
                 if (player.y > (obstacle3.y - player.height) && player.y < obstacle3.y && player.x > obstacle3.x && player.x < (obstacle3.x + obstacle3.width)) {player.y = (obstacle3.y -player.height); player.speedY = 0; player.gravitySpeed = 0; player.health -= 1}
                 if (player.y > (powerup.y - player.height) && player.y < (powerup.y + player.height) && player.x > (powerup.x - player.height) && player.x < (powerup.x + powerup.width)) {player.jump = 100; powerup.x = -100}
-                if (gameWindow.keys && gameWindow.keys[65]) {player.speedX = -8; }
-                if (gameWindow.keys && gameWindow.keys[68]) {player.speedX = 8; }
+                if (gameWindow.keys && gameWindow.keys[65]) {player.speedX = -8; } else {player.speedX = 0}
+                if (gameWindow.keys && gameWindow.keys[68]) {player.speedX = 8; } else {player.speedX = 0}
                 if ((score / 100 ) == w) {player.health += 50; w += 1}
                 if (player.x < 0) {player.x = 0}
                 if (player.x > (1480 - player.width)) {player.x = (1480 - player.width)}
                 if (gameWindow.key && gameWindow.key == 32) {player.y -= 4; player.gravitySpeed = 1}
                 if (player.y > 300) {if (player.gravitySpeed < 4){player.y -= 4} else {player.y -= player.gravitySpeed}}
                 if (player.health <= 0) {player.gravity = 0; player.gravitySpeed = 0}
+                if (document.getElementById("left").ontouchstart) {player.speedX = -8} else {player.speedX = 0}
+                if (document.getElementById("right").ontouchstart) {player.speedX = -8} else {player.speedX = 0}
                 powerup.x += 10
                 player.update();
                 obstacle0.y -= player.gravitySpeed;
@@ -125,5 +125,7 @@
         <p id="health">3</p>
         <p id="power"></p>
         <p id="highscore">0</p>
+        <p id="right">left</p>
+        <p id="left">right</p>
     </body>
 </html>

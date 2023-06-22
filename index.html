@@ -86,7 +86,8 @@
                 player.newPos();
                 console.log(player.gravitySpeed);
                 if (document.getElementById("left").ontouchstart) {player.speedX = -8}
-                if (document.getElementById("right").ontouchstart) {player.speedX = -8} else {player.speedX = 0}
+                if (document.getElementById("right").ontouchstart) {player.speedX = 8} else {player.speedX = 0}
+                player.speedY = 0
                 if (powerup.x > 1480) {powerup.x = 0}
                 if (obstacle0.y < 0) {obstacle0.y = 800; obstacle0.x = (Math.floor(Math.random() * 1480) -50); obstacle0.width = (Math.floor(Math.random() * 400) + 100); score += 1}
                 if (obstacle1.y < 0) {obstacle1.y = 800; obstacle1.x = (Math.floor(Math.random() * 1480) -50); obstacle1.width = (Math.floor(Math.random() * 400) + 100); score += 1}

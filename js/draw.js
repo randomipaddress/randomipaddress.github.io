@@ -35,5 +35,10 @@ function component(width, height, color, x, y, type) {
 }
 
 function drawGraph(eq, pre) {
-    
+    for (let x = 0; x <= pre; x++)
+    {
+        let equation = (3)(x)+1
+        let y = equation
+        new components(1,1,"white",x,y)
+    }
 }

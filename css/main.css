@@ -1,0 +1,71 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Form styling */
+form {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #1e1e1e; /* Darker form background */
+    border: 1px solid #333; /* Subtle border */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Darker shadow */
+}
+
+form label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #e0e0e0; /* Light text color */
+}
+
+form input[type="text"],
+form input[type="number"] {
+    margin: 5px 10px 5px 0;
+    padding: 5px;
+    border: 1px solid #555; /* Subtle border for inputs */
+    border-radius: 4px;
+    background-color: #2a2a2a; /* Dark input background */
+    color: #e0e0e0; /* Light text color */
+    width: 100px;
+}
+
+form input[type="button"] {
+    margin: 5px;
+    padding: 8px 15px;
+    background-color: #007bff; /* Bright blue button */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="button"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Canvas styling */
+canvas {
+    border: 2px solid #007bff; /* Bright blue border */
+    background-color: #1e1e1e; /* Dark canvas background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    border-radius: 8px;
+}
+
+/* Centering the content */
+.container {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+}
